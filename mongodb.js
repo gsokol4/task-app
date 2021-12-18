@@ -27,12 +27,25 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (error, client) =>
   //     console.log(error)
   //   })
 
-  let toggle = true
-  const falseOrTrue = () => {
-    toggle = !toggle
-    return toggle
-  }
-  db.collection('tasks').updateMany({ completed: false }, { $set: { completed: true } })
-    .then((success) => { console.log(success) })
-    .catch((error) => { console.log(error) })
+  // let toggle = true
+  // const falseOrTrue = () => {
+  //   toggle = !toggle
+  //   return toggle
+  // }
+  // db.collection('tasks').updateMany({ completed: false }, { $set: { completed: true } })
+  //   .then((success) => { console.log(`success: ${success.modifiedCount}`) })
+  //   .catch((error) => { console.log(`error:${error}`) })
+
+  // db.collection('users').deleteMany({ age: 27 }).then(
+  //   (success) => {
+  //     console.log(success)
+  //   }
+  //   ).catch((error) => {
+  //     console.log(error)
+  //   })
+
+  let deleteMe = 'do the dishes'
+  db.collection('tasks').deleteOne({ description: deleteMe }).then(
+    (success) => { console.log(success) }
+  ).catch((error) => { console.log(error) })
 })
