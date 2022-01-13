@@ -44,7 +44,7 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (error, client) =>
   //     console.log(error)
   //   })
 
-  let deleteMe = 'do the dishes'
+  const deleteMe = 'do the dishes'
   db.collection('tasks').deleteOne({ description: deleteMe }).then(
     (success) => { console.log(success) }
   ).catch((error) => { console.log(error) })

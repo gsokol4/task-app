@@ -3,7 +3,19 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
 })
 
-const User = mongoose.model('User', {
+const Task = mongoose.model('Task', {
+  description: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const User = mongoose.model('Person', {
   name: {
     type: String
   },
@@ -13,8 +25,8 @@ const User = mongoose.model('User', {
 })
 
 const me = new User({
-  name: 'Gabriel',
-  age: 'mike'
+  name: 'Donotello',
+  age: 25
 })
 
 me.save().then(
