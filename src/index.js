@@ -55,12 +55,13 @@ app.get('/task', (req, res) => {
 
 app.get('/task/:id', (req, res) => {
   console.log(req.body)
-  const id = req.body.id
+  const id = req.params.id
+  console.log(req.params)
 
   Task.findById(id).then(
     (task) => {
       if (!task) {
-        return res.send(404)
+        return res.sendStatus(404)
       }
       res.send(task)
     }
