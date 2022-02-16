@@ -12,37 +12,39 @@ app.use(express.json())
 //   res.send('yoink it works')
 // })
 
-app.get('/users', (req, res) => {
-  User.find({}).then((users) => {
-    res.send(users)
-  }).catch(() => {
+app.get('/users', async (req, res) => {
+  try {
+    const allUsers = await User.find({})
+    res.send(allUsers)
+  } catch (e) {
     res.status(500).send()
-  })
+  }
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('/users/:id', async (req, res) => {
   console.log(req.params)
   const id = req.params.id
 
-  User.findById(id).then((personObject) => {
+  try {
+    const personObject = await User.findById(id)
     if (!personObject) {
       console.log('there is no person object')
       return res.status(404).send()
     }
     res.send(personObject)
-  }).catch((e) => {
+  } catch (e) {
     res.send(e)
-  })
+  }
 })
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
   const person = new User(req.body)
-
-  person.save().then(() => {
+  try {
+    await person.save()
     res.status(201).send(person)
-  }).catch((e) => {
+  } catch (e) {
     res.status(400).send(e)
-  })
+  }
 })
 
 app.get('/task', (req, res) => {
@@ -72,14 +74,15 @@ app.get('/task/:id', (req, res) => {
   )
 })
 
-app.post('/task', (req, res) => {
-  const task = new Task(req.body)
-  console.log(task)
-  task.save().then(() => {
+app.post('/task', async (req, res) => {
+  try {
+    const task = new Task(req.body)
+    console.log(task)
+    await task.save()
     res.status(201).send(task)
-  }).catch((e) => {
+  } catch (e) {
     res.status(400).send(e)
-  })
+  }
 })
 
 app.listen(port, () => {
